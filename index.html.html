@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success By Kersaint — Brand Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+
+:root {
+  --bg:      #141720;
+  --bg2:     #181c26;
+  --sidebar: #0e1018;
+  --card:    #1c2030;
+  --card2:   #212538;
+  --active:  #262b3e;
+  --white:   #ffffff;
+  --off:     #c8cad0;
+  --gray:    #7a7d8a;
+  --gray2:   #3a3d4a;
+  --border:  rgba(255,255,255,0.06);
+  --red:     #ff3b3b;
+  --green:   #00e676;
+  --gold:    #ffd600;
+  --accent:  rgba(255,255,255,0.08);
+}
+
+body {
+  background: linear-gradient(160deg, #1a1a1a 0%, #111111 40%, #0a0a0a 70%, #141414 100%);
+  background-attachment: fixed;
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  display: flex;
+  height: 100vh;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+#cur  { width:10px;height:10px;background:#fff;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:exclusion;transition:width .25s,height .25s; }
+#cur2 { width:32px;height:32px;border:1px solid rgba(255,255,255,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 300px;
+  min-width: 300px;
+  background: rgba(10,12,18,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+  position: relative;
+}
+
+.sidebar-logo {
+  padding: 24px 22px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+.logo-main {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 18px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--white);
+  display: block; margin-bottom: 4px;
+}
+.logo-sub {
+  font-size: 10px; color: var(--gray); letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sidebar-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gray2);
+  padding: 14px 22px 8px;
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+
+/* ── CAROUSEL VIEWPORT ── */
+.carousel-viewport {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+
+/* top/bottom fade masks */
+.carousel-viewport::before,
+.carousel-viewport::after {
+  content: '';
+  position: absolute; left: 0; right: 0; z-index: 3; pointer-events: none;
+}
+.carousel-viewport::before {
+  top: 0; height: 160px;
+  background: linear-gradient(to bottom, var(--sidebar) 30%, transparent 100%);
+}
+.carousel-viewport::after {
+  bottom: 0; height: 160px;
+  background: linear-gradient(to top, var(--sidebar) 30%, transparent 100%);
+}
+
+.carousel-track {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+/* ── EACH NAV CARD ── */
+.nav-card-wrap {
+  position: absolute;
+  left: 12px; right: 12px;
+  height: 160px;
+  top: -80px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity  0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  transform-origin: center center;
+}
+
+.nav-card {
+  width: 100%; height: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.5s, box-shadow 0.5s, background 0.5s;
+  backface-visibility: hidden;
+}
+
+/* gradient background per card */
+
+/* ── ALL CARDS: frosted glass / iphone mirror ── */
+.nav-card-wrap .nav-card {
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,0.18) 0%,
+      rgba(255,255,255,0.06) 40%,
+      rgba(255,255,255,0.12) 70%,
+      rgba(255,255,255,0.04) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+/* ── ACTIVE CARD: brighter frost + sheen ── */
+.nav-card-wrap.active .nav-card {
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,0.28) 0%,
+      rgba(255,255,255,0.10) 35%,
+      rgba(255,255,255,0.20) 65%,
+      rgba(255,255,255,0.08) 100%) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(255,255,255,0.1),
+    0 8px 32px rgba(0,0,0,0.55),
+    0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+/* ── SHEEN: diagonal highlight sweep on all cards ── */
+.nav-card-wrap .nav-card::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 2;
+  border-radius: 18px;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    rgba(255,255,255,0.0)  0%,
+    rgba(255,255,255,0.0)  35%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.0)  65%,
+    rgba(255,255,255,0.0)  100%
+  );
+  background-size: 250% 250%;
+  animation: sheenSlide 9s ease-in-out infinite;
+}
+
+@keyframes sheenSlide {
+  0%   { background-position: 200% 200%; }
+  50%  { background-position: -50% -50%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* Active card: faster, brighter sheen sweep */
+.nav-card-wrap.active .nav-card::before {
+  background: linear-gradient(
+    115deg,
+    rgba(255,255,255,0.0)  0%,
+    rgba(255,255,255,0.0)  30%,
+    rgba(255,255,255,0.35) 48%,
+    rgba(255,255,255,0.5)  50%,
+    rgba(255,255,255,0.35) 52%,
+    rgba(255,255,255,0.0)  70%,
+    rgba(255,255,255,0.0)  100%
+  );
+  background-size: 250% 250%;
+  animation: sheenSlide 7s ease-in-out infinite;
+}
+
+/* ── BOTTOM TEXT GRADIENT (all cards) ── */
+.nav-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.12) 45%,
+    transparent 70%);
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* streak2 div — hidden (not needed for frost look) */
+.nav-card .streak2 { display: none; }
+
+/* ── CAROUSEL ARROWS ── */
+.carousel-arrows {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+.c-arrow {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; width: 32px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 12px; color: var(--gray);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  user-select: none;
+}
+.c-arrow:hover { color: var(--white); border-color: rgba(255,255,255,0.2); background: var(--card2); }
+.c-counter {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--gray2); letter-spacing: 1px;
+}
+
+/* ── MAIN ── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* top bar */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: rgba(14,16,28,0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 5;
+}
+.topbar-section {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gray);
+  transition: color 0.3s;
+}
+.topbar-nav { display: flex; gap: 32px; }
+.topbar-nav a {
+  font-size: 11px; color: var(--gray); text-decoration: none;
+  letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+  transition: color 0.2s;
+}
+.topbar-nav a:hover { color: var(--white); }
+
+/* content area */
+.content-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* panels */
+.panel {
+  position: absolute; inset: 0;
+  padding: 60px 64px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.panel::-webkit-scrollbar { width: 4px; }
+.panel::-webkit-scrollbar-track { background: transparent; }
+.panel::-webkit-scrollbar-thumb { background: var(--gray2); border-radius: 2px; }
+
+.panel.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+/* panel typography */
+.panel-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gray); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.panel-eyebrow::after {
+  content: ''; width: 40px; height: 1px; background: var(--gray2);
+}
+
+.panel-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.9; text-transform: uppercase; margin-bottom: 40px;
+  letter-spacing: -0.5px;
+}
+
+.panel-body {
+  font-size: 14px; line-height: 1.85; color: var(--gray);
+  max-width: 720px; margin-bottom: 36px;
+}
+.panel-body strong { color: var(--off); font-weight: 600; }
+
+/* callout */
+.callout {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--white);
+  border-radius: 12px; padding: 24px 28px; margin-bottom: 28px;
+  max-width: 720px;
+}
+.callout p { font-size: 15px; line-height: 1.75; color: var(--off); }
+.callout p strong { color: var(--white); }
+.callout.muted { border-left-color: var(--gray2); }
+.callout.muted p { font-size: 14px; }
+
+/* truth rows */
+.truth-list { display: flex; flex-direction: column; gap: 10px; max-width: 780px; }
+.trow {
+  display: grid; grid-template-columns: 72px 1fr;
+  gap: 20px; align-items: start;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 22px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.trow:hover { border-color: rgba(255,255,255,0.14); transform: translateX(4px); }
+.tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  padding: 4px 9px; border-radius: 6px; text-align: center;
+  text-transform: uppercase; width: fit-content;
+}
+.tag-t { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.2); }
+.tag-g { background: rgba(255,59,59,0.1);  color: #ff3b3b; border: 1px solid rgba(255,59,59,0.2); }
+.trow p { font-size: 13px; line-height: 1.75; color: var(--gray); }
+.trow p strong { color: var(--off); }
+
+/* compare */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 780px; margin-bottom: 28px; }
+.ccard { border-radius: 12px; padding: 24px 26px; }
+.ccard.kill { background: rgba(255,59,59,0.04); border: 1px solid rgba(255,59,59,0.15); }
+.ccard.new  { background: rgba(0,230,118,0.04); border: 1px solid rgba(0,230,118,0.15); }
+.clabel { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+.ccard.kill .clabel { color: #ff3b3b; }
+.ccard.new  .clabel { color: #00e676; }
+.ccard p { font-size: 13px; line-height: 1.75; color: var(--gray); font-style: italic; }
+
+/* audit */
+.audit-section-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gray2); margin-bottom: 14px; margin-top: 32px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+.aitem {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: padding-left 0.2s; max-width: 760px;
+}
+.aitem:hover { padding-left: 6px; }
+.aicon {
+  width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; margin-top: 1px;
+}
+.ki { background: rgba(255,59,59,0.1);  color: #ff3b3b; }
+.fi { background: rgba(255,214,0,0.1);  color: var(--gold); }
+.ai { background: rgba(0,230,118,0.1);  color: #00e676; }
+.aitem p { font-size: 13px; line-height: 1.75; color: var(--gray); }
+.aitem p strong { color: var(--off); font-weight: 600; }
+
+/* series grid */
+.series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; max-width: 820px; }
+.scard {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px; cursor: default;
+  transition: transform 0.25s, border-color 0.25s;
+  position: relative; overflow: hidden;
+}
+.scard::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--white), transparent);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.35s;
+}
+.scard:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.14); }
+.scard:hover::before { transform: scaleX(1); }
+.snum {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 48px; line-height: 1; color: var(--gray2); margin-bottom: 12px;
+  transition: color 0.2s;
+}
+.scard:hover .snum { color: var(--white); }
+.scard h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--off); }
+.scard p  { font-size: 12px; line-height: 1.7; color: var(--gray); }
+
+/* email table */
+.etable { width: 100%; border-collapse: collapse; max-width: 780px; }
+.etable th { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray2); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.etable td { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 13px; color: var(--gray); line-height: 1.65; vertical-align: top; }
+.etable td:first-child { color: var(--off); font-weight: 600; white-space: nowrap; }
+.etable td:nth-child(2) { font-style: italic; color: var(--off); font-size: 12px; }
+.etable tr:hover td { background: rgba(255,255,255,0.015); }
+
+/* tier cards */
+.tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; max-width: 820px; }
+.tcard {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 26px; position: relative; overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.tcard:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.14); }
+.tbar { position: absolute; bottom:0; left:0; right:0; height:2px; background: var(--gray2); }
+.tcard:nth-child(1) .tbar { background: var(--white); }
+.tcard:nth-child(2) .tbar { background: var(--gray); }
+.tlbl { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray2); margin-bottom: 6px; }
+.tname { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; color: var(--off); }
+.tcard p { font-size: 12px; line-height: 1.7; color: var(--gray); margin-bottom: 16px; }
+.tret { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; color: var(--white); }
+.tretl { font-size: 9px; color: var(--gray2); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+
+/* roadmap */
+.rmap { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; max-width: 820px; }
+.rphase {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 26px; position: relative; overflow: hidden;
+}
+.rtop { position: absolute; top:0; left:0; right:0; height:2px; }
+.rphase:nth-child(1) .rtop { background: var(--white); }
+.rphase:nth-child(2) .rtop { background: var(--gray); }
+.rphase:nth-child(3) .rtop { background: var(--gray2); }
+.rlbl { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 4px; }
+.rphase:nth-child(1) .rlbl { color: var(--white); }
+.rphase:nth-child(2) .rlbl { color: var(--gray); }
+.rphase:nth-child(3) .rlbl { color: var(--gray2); }
+.rdays { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 32px; line-height: 1.1; margin-bottom: 20px; }
+.ri { display: flex; gap: 8px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 12px; color: var(--gray); line-height: 1.5; }
+.ri:last-child { border-bottom: none; }
+.rdot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.rphase:nth-child(1) .rdot { background: var(--white); }
+.rphase:nth-child(2) .rdot { background: var(--gray); }
+.rphase:nth-child(3) .rdot { background: var(--gray2); }
+
+/* rev grid */
+.rev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 14px; max-width: 780px; }
+.rcard { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: transform 0.2s, border-color 0.2s; }
+.rcard:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.14); }
+.rcard .ico { font-size: 26px; margin-bottom: 14px; display: block; }
+.rcard h4 { font-size: 14px; font-weight: 700; color: var(--off); margin-bottom: 8px; }
+.rcard p  { font-size: 12px; line-height: 1.7; color: var(--gray); }
+
+/* verdict */
+.verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 780px; margin-bottom: 28px; }
+.vcard { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 26px; }
+.vcard h4 { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.vcard.w h4 { color: #ff3b3b; }
+.vcard.o h4 { color: #00e676; }
+.vi { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; font-size: 12px; color: var(--gray); }
+.vi::before { content: '—'; color: var(--gray2); flex-shrink: 0; }
+
+/* ig grid inline */
+.ig-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; max-width: 780px; margin-bottom: 28px; }
+.igcard { border-radius: 12px; padding: 22px; }
+.igcard:nth-child(1) { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+.igcard:nth-child(2) { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); }
+.igcard:nth-child(3) { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); }
+.igtype { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 2px; text-transform: uppercase; color: var(--off); margin-bottom: 10px; }
+.igcard p { font-size: 12px; line-height: 1.7; color: var(--gray); }
+
+/* right side social links */
+.side-social {
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 0; z-index: 20;
+}
+.soc-link {
+  writing-mode: vertical-lr; transform: rotate(180deg);
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gray2); padding: 14px 10px; border-left: 1px solid var(--border);
+  text-decoration: none; background: var(--bg);
+  transition: color 0.2s, background 0.2s;
+}
+.soc-link:hover { color: var(--white); background: var(--card); }
+
+/* bottom bar */
+.bottombar {
+  padding: 14px 64px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+  background: rgba(14,16,28,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.bb-left { font-size: 11px; color: var(--gray2); letter-spacing: 1px; }
+.bb-right { display: flex; gap: 8px; }
+.bb-btn {
+  background: none; border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 18px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gray); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  font-family: 'Barlow', sans-serif;
+}
+.bb-btn:hover { border-color: rgba(255,255,255,0.25); color: var(--white); background: var(--card); }
+.bb-btn.primary { background: var(--white); color: var(--bg); border-color: var(--white); }
+.bb-btn.primary:hover { background: var(--off); }
+
+/* progress bar */
+.progress-bar {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; background: var(--white);
+  transition: width 0.4s ease;
+  z-index: 5; opacity: 0.5;
+}
+
+/* ── NAV CARD TEXT ── */
+.nav-card-inner {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 14px 14px 12px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 5;
+}
+
+.nav-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 88px;
+  line-height: 1;
+  color: rgba(255,255,255,0.35);
+  min-width: 88px;
+  flex-shrink: 0;
+  transition: color 0.3s;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+.nav-card-wrap.active .nav-num { color: rgba(255,255,255,0.8); }
+
+.nav-info { flex: 1; min-width: 0; }
+
+.nav-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  line-height: 1.3;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+}
+.nav-card-wrap.active .nav-title { color: #ffffff; }
+
+.nav-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-card-wrap.active .nav-tag { color: rgba(255,255,255,0.65); }
+
+.nav-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+  margin-bottom: 4px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.nav-card-wrap.active .nav-dot {
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255,255,255,0.9);
+}
+
+/* ═══════════════════════════════════════
+   MOBILE OPTIMISATION
+   ═══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* ── LAYOUT: stack vertically ── */
+  body {
+    flex-direction: column;
+    height: auto;
+    overflow: auto;
+    cursor: auto;
+  }
+
+  /* hide custom cursor on mobile */
+  #cur, #cur2 { display: none; }
+
+  /* ── SIDEBAR: full-width top strip ── */
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    overflow: hidden;
+    height: auto;
+  }
+
+  .sidebar-logo {
+    padding: 16px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebar-label { display: none; }
+
+  /* ── CAROUSEL: horizontal scroll strip ── */
+  .carousel-viewport {
+    height: 110px;
+    perspective: 800px;
+  }
+
+  .carousel-viewport::before,
+  .carousel-viewport::after {
+    height: 40px;
+  }
+
+  .nav-card-wrap {
+    height: 82px;
+    top: -41px;
+  }
+
+  /* ── CAROUSEL ARROWS ── */
+  .carousel-arrows {
+    padding: 8px 14px;
+  }
+
+  /* ── MAIN: full width ── */
+  .main {
+    height: auto;
+    overflow: visible;
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .topbar-nav {
+    display: none;
+  }
+
+  /* ── CONTENT WRAP: auto height on mobile ── */
+  .content-wrap {
+    position: relative;
+    overflow: visible;
+    height: auto;
+  }
+
+  /* ── PANELS: all visible, stacked ── */
+  .panel {
+    position: relative;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: all !important;
+    padding: 32px 20px;
+    display: none;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .panel-title {
+    font-size: clamp(36px, 10vw, 56px);
+    margin-bottom: 24px;
+  }
+
+  .panel-eyebrow { font-size: 9px; }
+  .panel-body { font-size: 13px; }
+
+  /* ── CARDS & GRIDS ── */
+  .compare { grid-template-columns: 1fr; }
+  .tier-grid { grid-template-columns: 1fr; }
+  .rmap { grid-template-columns: 1fr; }
+  .rev-grid { grid-template-columns: 1fr; }
+  .ig-grid { grid-template-columns: 1fr; }
+  .verdict-grid { grid-template-columns: 1fr; }
+
+  /* Brand architecture mapping table */
+  div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── TRUTH ROWS ── */
+  .trow {
+    grid-template-columns: 60px 1fr;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  /* ── EMAIL TABLE ── */
+  .etable, .etable thead, .etable tbody,
+  .etable th, .etable td, .etable tr {
+    display: block;
+  }
+  .etable thead { display: none; }
+  .etable td {
+    padding: 8px 12px;
+    border-bottom: none;
+    font-size: 12px;
+  }
+  .etable td:first-child {
+    padding-top: 16px;
+    font-size: 11px;
+    color: var(--gray2);
+  }
+  .etable tr {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  /* ── CALLOUT ── */
+  .callout { padding: 18px 20px; }
+
+  /* ── BOTTOM BAR ── */
+  .bottombar {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ── SIDE SOCIAL: hide on mobile ── */
+  .side-social { display: none; }
+
+  /* ── SCORE GRID in overview ── */
+  div[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── NAV CARD TEXT on mobile ── */
+  .nav-num { font-size: 36px; min-width: 40px; }
+  .nav-title { font-size: 11px; }
+  .nav-tag { font-size: 8px; }
+}
+
+@media (max-width: 420px) {
+  .panel-title { font-size: clamp(28px, 9vw, 44px); }
+  .topbar { padding: 12px 16px; }
+  .panel { padding: 24px 16px; }
+  .callout { padding: 14px 16px; }
+  .nav-num { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-main" style="font-size:13px; letter-spacing:2px;">Success By Kersaint</span>
+    <span class="logo-sub">Brand Strategy</span>
+  </div>
+
+  <div class="sidebar-label">Sections</div>
+
+  <!-- Carousel viewport -->
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="carouselTrack">
+
+      <div class="nav-card-wrap active" data-panel="hero" data-index="0">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">00</span>
+          <div class="nav-info"><div class="nav-title">Overview</div><div class="nav-tag">Scores & Intro</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="truth" data-index="1">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">01</span>
+          <div class="nav-info"><div class="nav-title">Core Truth</div><div class="nav-tag">Emotional Foundation</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="audience" data-index="2">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">02</span>
+          <div class="nav-info"><div class="nav-title">The Audience</div><div class="nav-tag">Buyer Psychology</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="voice" data-index="3">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">03</span>
+          <div class="nav-info"><div class="nav-title">Brand Voice</div><div class="nav-tag">Messaging System</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="website" data-index="4">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">04</span>
+          <div class="nav-info"><div class="nav-title">Website Audit</div><div class="nav-tag">Kill / Fix / Add</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="tiktok" data-index="5">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">05</span>
+          <div class="nav-info"><div class="nav-title">TikTok</div><div class="nav-tag">Content System</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="instagram" data-index="6">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">06</span>
+          <div class="nav-info"><div class="nav-title">Instagram</div><div class="nav-tag">Where They Buy</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="email" data-index="7">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">07</span>
+          <div class="nav-info"><div class="nav-title">Email</div><div class="nav-tag">5-Part Sequence</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="influencer" data-index="8">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">08</span>
+          <div class="nav-info"><div class="nav-title">Influencer</div><div class="nav-tag">Micro Strategy</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="revenue" data-index="9">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">09</span>
+          <div class="nav-info"><div class="nav-title">Revenue Ops</div><div class="nav-tag">Growth Levers</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="roadmap" data-index="10">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">10</span>
+          <div class="nav-info"><div class="nav-title">90-Day Roadmap</div><div class="nav-tag">Phased Execution</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+      <div class="nav-card-wrap" data-panel="verdict" data-index="11">
+        <div class="nav-card"><div class="streak2"></div><div class="nav-card-inner">
+          <span class="nav-num">11</span>
+          <div class="nav-info"><div class="nav-title">Final Verdict</div><div class="nav-tag">Path to $100K/mo</div></div>
+          <div class="nav-dot"></div>
+        </div></div>
+      </div>
+
+    </div><!-- /carousel-track -->
+  </div><!-- /carousel-viewport -->
+
+  <div class="carousel-arrows">
+    <div class="c-arrow" onclick="carouselPrev()">▲</div>
+    <span class="c-counter" id="cCounter">01 / 12</span>
+    <div class="c-arrow" onclick="carouselNext()">▼</div>
+  </div>
+
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="topbar-section" id="topbar-label">Overview</span>
+    <nav class="topbar-nav">
+      <a href="javascript:void(0)" onclick="goTo(0); return false;">Overview</a>
+      <a href="javascript:void(0)" onclick="goTo(4); return false;">Website</a>
+      <a href="javascript:void(0)" onclick="goTo(5); return false;">Social</a>
+      <a href="javascript:void(0)" onclick="goTo(10); return false;">Roadmap</a>
+      <a href="javascript:void(0)" onclick="goTo(11); return false;">Verdict</a>
+    </nav>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- Content panels -->
+  <div class="content-wrap">
+
+    <!-- 00 OVERVIEW -->
+    <div class="panel active" id="panel-hero">
+      <div class="panel-eyebrow">Success By Kersaint · CMO-Level Audit</div>
+      <h1 class="panel-title">Brand &<br>Marketing<br>Strategy</h1>
+      <p class="panel-body">
+        A full CMO-level audit and growth strategy for Success By Kersaint.
+      </p>
+      <div class="callout">
+        <p><strong>The bottom line:</strong> The founder story is a 9 out of 10. The website tells almost none of it. That gap is where revenue is being lost every single day.</p>
+      </div>
+      <div style="margin-top:32px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray2);margin-bottom:14px;">Audit Scores</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:680px;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#ffd600;text-shadow:0 0 16px rgba(255,214,0,0.4);display:block;margin-bottom:6px;">5/10</span>
+            <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);">Brand Clarity</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#ff3b3b;text-shadow:0 0 16px rgba(255,59,59,0.4);display:block;margin-bottom:6px;">2/10</span>
+            <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);">Conversion Rate</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#00e676;text-shadow:0 0 16px rgba(0,230,118,0.4);display:block;margin-bottom:6px;">9/10</span>
+            <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);">Founder Story</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#ff3b3b;text-shadow:0 0 16px rgba(255,59,59,0.4);display:block;margin-bottom:6px;">3/10</span>
+            <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);">Product Pages</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#ffd600;text-shadow:0 0 16px rgba(255,214,0,0.4);display:block;margin-bottom:6px;">4/10</span>
+            <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);">Trust Signals</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;text-align:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#00e676;text-shadow:0 0 16px rgba(0,230,118,0.4);display:block;margin-bottom:6px;">9/10</span>
+            <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);">Mktg Potential</span>
+          </div>
+        </div>
+      </div>
+      <p class="panel-body" style="font-size:13px;margin-top:28px;margin-bottom:0;">
+        Use the sidebar to navigate each section of the strategy. Click any section box to reveal the full analysis, recommendations, and action items. Start with <strong>Core Truth →</strong>
+      </p>
+    </div>
+
+    <!-- 01 CORE TRUTH -->
+    <div class="panel" id="panel-truth">
+      <div class="panel-eyebrow">01 · Core Emotional Truth</div>
+      <h1 class="panel-title">Core Story<br>Got Strong<br>Emotional<br>Foundation</h1>
+      <p style="font-size:16px; color:var(--off); font-style:italic; margin-top:-24px; margin-bottom:36px; max-width:620px; line-height:1.6;">The brand already has million-dollar potential because of its core story. It just needs the right positioning.</p>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-left:3px solid rgba(255,255,255,0.4); border-radius:14px; padding:22px 26px; margin-bottom:36px; max-width:720px;">
+        <p style="font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gray2); margin-bottom:14px;">Directly from successbykersaint.com</p>
+        <p style="font-size:14px; line-height:1.8; color:var(--gray); font-style:italic;">"What started as a reminder to stay focused has grown into a national movement. SuccessByKersaint is more than just apparel — it's a way to inspire, empower, and remind everyone that change is possible. Together, we're capturing young minds before negativity takes hold, one T-shirt at a time."</p>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:22px 26px; margin-bottom:36px; max-width:720px;">
+        <p style="font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gray2); margin-bottom:16px;">How the site language maps to the brand architecture</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); border-radius:8px; overflow:hidden; font-size:12px;">
+            <div style="background:var(--card); padding:10px 14px; color:var(--gray); font-style:italic;">"What started as a reminder to stay focused"</div>
+            <div style="background:var(--card2); padding:10px 14px; color:var(--off); font-weight:600;">→ Core Story / Emotional Truth</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); border-radius:8px; overflow:hidden; font-size:12px;">
+            <div style="background:var(--card); padding:10px 14px; color:var(--gray); font-style:italic;">"Grown into a national movement"</div>
+            <div style="background:var(--card2); padding:10px 14px; color:var(--off); font-weight:600;">→ Movement Layer</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); border-radius:8px; overflow:hidden; font-size:12px;">
+            <div style="background:var(--card); padding:10px 14px; color:var(--gray); font-style:italic;">"Capturing young minds before negativity takes hold"</div>
+            <div style="background:var(--card2); padding:10px 14px; color:var(--off); font-weight:600;">→ Mission Layer</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); border-radius:8px; overflow:hidden; font-size:12px;">
+            <div style="background:var(--card); padding:10px 14px; color:var(--gray); font-style:italic;">"Stand Up Create Change Every Single Second"</div>
+            <div style="background:var(--card2); padding:10px 14px; color:var(--off); font-weight:600;">→ The Reminder</div>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--gray2); margin-top:16px; line-height:1.6;">The strategy does not contradict the site — it amplifies it. The site says it carefully. The strategy says it with the full weight of Rodney's real story behind it.</p>
+      </div>
+      <div class="callout">
+        <p>Rodney Kersaint grew up in Brooklyn, NY and Willingboro, NJ — raised by his mother Juliette, who worked multiple jobs to raise four children alone. At 8 years old, Rodney and a friend were forced to their knees at gunpoint while a neighbor played Russian roulette. <strong>That moment changed everything.</strong></p>
+      </div>
+      <p class="panel-body">
+        The anger that followed led to removal from high school, boarding school, getting kicked out of the family home, and running with the wrong crowd. He lost friends to jail and death.<br><br>
+        In 2008, Rodney joined the United States Navy and was stationed in San Diego. The change of scenery changed his mindset. He put the word SUCCESS on a T-shirt — not as a fashion statement, but as a personal reminder to stay focused. It became a local hit, landing him a feature on Channel 8 News with Larry Himmel.<br><br>
+        <strong>S.U.C.C.E.S.S.</strong> — Stand Up. Create Change. Every Single Second.<br><br>
+        This is not a clothing line. It is a movement built to capture young minds before negative influences do — and to break the cycle of negativity one T-shirt at a time.
+      </p>
+      <div style="margin-top:8px; max-width:720px;">
+        <p style="font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gray2); margin-bottom:20px;">The Brand Architecture</p>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+
+          <div style="display:grid; grid-template-columns:110px 1fr; align-items:start; gap:0; background:linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden;">
+            <div style="padding:20px 18px; background:rgba(255,255,255,0.04); border-right:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
+              <span style="font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray2);">01</span>
+              <span style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--white);">Mission</span>
+            </div>
+            <div style="padding:20px 22px;">
+              <p style="font-size:14px; line-height:1.7; color:var(--off); font-style:italic;">Reach young people before the wrong influences do.</p>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:110px 1fr; align-items:start; gap:0; background:linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden;">
+            <div style="padding:20px 18px; background:rgba(255,255,255,0.04); border-right:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
+              <span style="font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray2);">02</span>
+              <span style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--white);">Movement</span>
+            </div>
+            <div style="padding:20px 22px;">
+              <p style="font-size:14px; line-height:1.7; color:var(--off); font-style:italic;">The story reaches them. The shirt reminds them.</p>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:110px 1fr; align-items:start; gap:0; background:linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.15); border-radius:14px; overflow:hidden; box-shadow: 0 0 24px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.1);">
+            <div style="padding:20px 18px; background:rgba(255,255,255,0.07); border-right:1px solid rgba(255,255,255,0.1); display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
+              <span style="font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray2);">03</span>
+              <span style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--white);">Reminder</span>
+            </div>
+            <div style="padding:20px 22px;">
+              <p style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:20px; letter-spacing:2px; text-transform:uppercase; color:var(--white); line-height:1.4;">Stand Up.<br>Create Change.<br>Every Single Second.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 AUDIENCE -->
+    <div class="panel" id="panel-audience">
+      <div class="panel-eyebrow">02 · Audience Psychology</div>
+      <h1 class="panel-title">Buyer<br>Persona</h1>
+      <div class="truth-list">
+        <div class="trow"><div><span class="tag tag-t">TRUTH</span></div><p>The audience spans three connected groups: <strong>youth in schools</strong> Rodney speaks to directly, <strong>college students</strong> navigating who they're becoming, and <strong>aspiring young adults</strong> trying to figure out life after setbacks. All three are the same person at different stages — and Rodney has lived all three.</p></div>
+        <div class="trow"><div><span class="tag tag-t">TRUTH</span></div><p>They don't buy motivation. They buy <strong>mirrors.</strong> The 19-year-old first-gen college student, the kid who just got kicked out, the 26-year-old starting over — they wear SUCCESS because it reflects who they're fighting to become, not who the world says they are.</p></div>
+        <div class="trow"><div><span class="tag tag-t">TRUTH</span></div><p>This audience is deeply loyal to brands built by someone who <strong>actually lived their story.</strong> Rodney survived Russian roulette at 8, lost friends to jail and death, rebuilt in the Navy, and built a movement from a single T-shirt. That is not a brand story — it is their story.</p></div>
+        <div class="trow"><div><span class="tag tag-t">TRUTH</span></div><p>College students and aspiring youth in the 18–30 range are the <strong>highest-sharing demographic on TikTok and Instagram.</strong> When they connect with a brand, they don't just buy — they recruit. One authentic post reaches an entire campus, dorm, or group chat.</p></div>
+        <div class="trow"><div><span class="tag tag-g">GAP</span></div><p>Parents, educators, counselors, and community leaders are an untapped buyer. They attend Rodney's school talks and want to bring the movement back to their students. A <strong>bulk and institutional orders page</strong> targeting this group does not exist yet — and it should.</p></div>
+      </div>
+    </div>
+
+    <!-- 03 VOICE -->
+    <div class="panel" id="panel-voice">
+      <div class="panel-eyebrow">03 · Brand Voice & Messaging</div>
+      <h1 class="panel-title">A voice<br>that<br>lands.</h1>
+      <p class="panel-body">The current copy sounds like a LinkedIn post written by someone who has never met Rodney — let alone the kid in the back row of a school assembly trying to stay out of trouble. The new standard: <strong>Direct. Real. From the street to the Navy to the stage.</strong> Speaks to the youth in schools, the college student figuring it out, and the adult rebuilding — all at once.</p>
+      <div class="compare">
+        <div class="ccard kill">
+          <div class="clabel">✕ Kill Forever</div>
+          <p>"Elevate your wardrobe with the Sweeter Success Hoodie — where comfort meets style. Make a statement without saying a word."<br><br><span style="font-style:normal;font-size:11px;color:rgba(255,59,59,0.7);">This is AI filler. This audience can smell fake from a mile away.</span></p>
+        </div>
+        <div class="ccard new">
+          <div class="clabel">✓ New Voice</div>
+          <p>"Rodney was the kid who got kicked out of school, lost friends to jail and death, and had a gun held to his head at eight years old. He put SUCCESS on a shirt to remind himself — not to inspire anyone. Now it's worn by college students, aspiring youth, and everyone still figuring it out. Wear it like it means something."</p>
+        </div>
+      </div>
+      <div class="callout" style="text-align:center; border-left:none; border-top:2px solid rgba(255,255,255,0.1);">
+        <p><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);font-style:normal;">New Homepage Hero</span><br><br>
+        The story reaches them.<br>The shirt reminds them.<br><br>
+        <strong>Stand Up. Create Change. Every Single Second.</strong><br><br>
+        For the youth in schools. The college student grinding at 2am. The one rebuilding from scratch. Built by someone who almost didn't make it.</p>
+      </div>
+    </div>
+
+    <!-- 04 WEBSITE -->
+    <div class="panel" id="panel-website">
+      <div class="panel-eyebrow">04 · Website Audit</div>
+      <h1 class="panel-title">What needs<br>to change.</h1>
+      <div class="audit-section-title">Homepage</div>
+      <div class="aitem"><div class="aicon ki">✕</div><p><strong>Kill the SEO headline.</strong> "Motivational Apparel & Inspirational T-Shirts" is a category description, not a brand statement. Replace with our new hero copy.</p></div>
+      <div class="aitem"><div class="aicon ki">✕</div><p><strong>Kill the missing CTA.</strong> Website visitors arrive with no directed next step. One hero button: "Join the Movement" → hero product collection.</p></div>
+      
+      <div class="aitem"><div class="aicon ki">✕</div><p><strong>Kill the hidden opt-in — make it a pop-up.</strong> A lead capture exists but it requires visitors to find and click a gift icon. Most won't. A pop-up opt-in that triggers automatically converts significantly higher because it meets the visitor where they are instead of waiting for them to go looking. The email list is the only audience the brand owns outright — no algorithm, no platform change can take it away. Every visitor who leaves without opting in is a potential customer gone forever.</p></div>
+      <div class="aitem"><div class="aicon ki"><span style="font-size:11px;font-weight:800;">!</span></div><p><strong>Fix: Trust signals exist — they're just in the wrong place.</strong> The brand has 52 Google reviews at 5.0 stars, a Channel 8 News feature with Larry Himmel, and real customer photos. That is more than most apparel brands ever earn. The problem is placement — all of it sits where visitors never scroll. Reviews, press logos, and customer photos need to be repositioned above the fold where they do the actual work of converting a visitor in the first 3 seconds.</p></div>
+      <div class="aitem"><div class="aicon fi">!</div><p><strong>Fix: The founder story lives on a page nobody clicks.</strong> Needs to live on the homepage itself, not buried in an About page.</p></div>
+      <div class="aitem"><div class="aicon ai">+</div><p><strong>Add: "What does SUCCESS mean to you?"</strong> Pull 5–6 real quotes — students Rodney has spoken to, customers, school counselors. Showing real people whose lives were touched by the brand is the most powerful trust signal available.</p></div>
+      <div class="audit-section-title">Product Pages</div>
+      <div class="aitem"><div class="aicon ki">✕</div><p><strong>Kill the boilerplate.</strong> "Introducing our latest addition to comfort and style" appears on multiple products. Replace every description with a story specific to that product.</p></div>
+      <div class="aitem"><div class="aicon ki">✕</div><p><strong>Kill the review void.</strong> Reviews are the #1 conversion driver for apparel. Without them, every purchase requires a trust leap most 18–25 year olds won't make.</p></div>
+      <div class="aitem"><div class="aicon fi">!</div><p><strong>Fix: No urgency signals.</strong> "Only 3 left in your size" creates purchase urgency for a demographic that comparison-shops constantly.</p></div>
+      <div class="aitem"><div class="aicon ai">+</div><p><strong>Add: Upsells and cross-sells.</strong> "Complete the look" with 2–3 complementary products lifts AOV by 20–35% with zero additional marketing spend.</p></div>
+    </div>
+
+    <!-- 05 TIKTOK -->
+    <div class="panel" id="panel-tiktok">
+      <div class="panel-eyebrow">05 · TikTok Strategy</div>
+      <h1 class="panel-title">Primary<br>acquisition<br>channel.</h1>
+      <p class="panel-body">TikTok is where this brand gets built. Youth, college students, and aspiring young adults are the highest-engaged demographics on the platform — and Rodney's story is tailor-made for it. Raw, real, impossible to fake. Here is the exact content system.</p>
+      <div class="series-grid">
+        <div class="scard"><div class="snum">01</div><h4>"Nobody believed in me either"</h4><p>Rodney on camera, 60 seconds, twice a week. One chapter per video: the gun to his head at 8. Boarding school. The streets. The Navy. San Diego. The first shirt. Channel 8 News with Larry Himmel. Phone quality is fine — the story does the work.</p></div>
+        <div class="scard"><div class="snum">02</div><h4>"What does SUCCESS mean to you?"</h4><p>Street interview format at HBCUs, college campuses, and barbershops. Cut to 45 seconds. End with S.U.C.C.E.S.S. on screen. This format consistently reaches 100k–500k views organically — and speaks directly to all three audience groups at once.</p></div>
+        <div class="scard"><div class="snum">03</div><h4>School Visit Clips</h4><p>Film Rodney speaking at schools across the country. 60-second cuts of real student reactions. Nothing converts a viewer into a believer faster than seeing children light up when they hear this story. This content already exists — it just needs to be posted.</p></div>
+        <div class="scard"><div class="snum">04</div><h4>The S.U.C.C.E.S.S. Letter Series</h4><p>One letter, one story, one week. S — Stand Up. Here's the moment I had to stand up when everything said stay down. Personal, raw. A natural 7-episode season.</p></div>
+        <div class="scard"><div class="snum">05</div><h4>Customer Spotlight</h4><p>Reshare every customer post. Ask buyers to film receiving their package and say what SUCCESS means to them. Repost: "This is why we do this." Builds a real UGC loop.</p></div>
+      </div>
+      <div class="callout" style="margin-top:24px;">
+        <p><strong>Highest-ROI action — today, free:</strong> Film a 60-second TikTok. Phone quality. "At 8 years old I had a gun to my head. I was kicked out of school. I lost friends to jail and death. I put SUCCESS on a shirt to remind myself — not inspire anyone. Now it's a movement. This one's for the ones who need to hear it." Pin it to the profile.</p>
+      </div>
+    </div>
+
+    <!-- 06 INSTAGRAM -->
+    <div class="panel" id="panel-instagram">
+      <div class="panel-eyebrow">06 · Instagram Strategy</div>
+      <h1 class="panel-title">Where they<br>decide<br>to buy.</h1>
+      <p class="panel-body">TikTok brings new people in. Instagram is where they decide whether to trust the brand and buy. Two very different jobs that require two different approaches.</p>
+      <div class="ig-grid">
+        <div class="igcard"><div class="igtype">Feed</div><p>4–5 posts/week. Alternate: product on real people, motivational S.U.C.C.E.S.S. graphics, community features, and founder moments. Every post should make a 22-year-old think <strong style="color:var(--off)">"this brand gets me."</strong></p></div>
+        <div class="igcard"><div class="igtype">Reels</div><p>3/week. Mirror our best TikToks but write longer, more personal captions. <strong style="color:var(--off)">Instagram captions are read.</strong> "I made this shirt for the version of me that needed to hear it most."</p></div>
+        <div class="igcard"><div class="igtype">Stories</div><p>Daily — non-negotiable. Polls, question boxes, countdowns for drops, behind-the-scenes. <strong style="color:var(--off)">Stories build parasocial relationships.</strong> This audience buys from people they feel they know.</p></div>
+      </div>
+      <div class="callout muted">
+        <p>Every Story, every Reel, every post should ask: <strong>would the 19-year-old version of Rodney stop scrolling for this?</strong> If the answer is no, don't post it.</p>
+      </div>
+    </div>
+
+    <!-- 07 EMAIL -->
+    <div class="panel" id="panel-email">
+      <div class="panel-eyebrow">07 · Email Marketing</div>
+      <h1 class="panel-title">Emails that<br>feel like<br>texts.</h1>
+      <p class="panel-body">Most brands email this audience wrong — too long, too formal, too salesy. Whether it's a 16-year-old who just discovered the brand at a school talk or a 24-year-old college student who found it on TikTok, emails should feel like a text from someone who actually gets it. Short. Real. Personal.</p>
+      <div class="callout" style="margin-bottom:28px;">
+        <p><strong>Email popup copy:</strong><br><br>"Join the movement. Get 10% off and a weekly dose of real."<br><br><span style="font-size:12px;color:var(--gray);font-style:normal;">The word "movement" converts 30–40% better than "newsletter" because it speaks to belonging, not transaction.</span></p>
+      </div>
+      <table class="etable">
+        <thead><tr><th>Email</th><th>Subject Line</th><th>Core Content</th></tr></thead>
+        <tbody>
+          <tr><td>1 — Immediate</td><td>"You just joined something real."</td><td>Rodney's full journey — Brooklyn, Willingboro NJ, Russian roulette at 8, boarding school, the streets, the Navy, San Diego, the shirt, Channel 8 News with Larry Himmel. No product pitch. Written as if speaking directly to someone who is right now where Rodney once was. The story is the pitch.</td></tr>
+          <tr><td>2 — Day 3</td><td>"S.U.C.C.E.S.S. — what it actually means."</td><td>Break down S.U.C.C.E.S.S. — Stand Up. Create Change. Every Single Second. One letter per paragraph. End with: "Which letter hits different for you right now?" Works for a 15-year-old in school and a 28-year-old rebuilding their life equally.</td></tr>
+          <tr><td>3 — Day 7</td><td>"Meet the people wearing their belief."</td><td>3 real people — a student Rodney spoke to at a school, a first-gen college grad, a young adult who rebuilt after hitting rock bottom. Their photo, one line about their story, then a 10% off code.</td></tr>
+          <tr><td>4 — Day 12</td><td>"Why I still wear SUCCESS every day."</td><td>Rodney shares a personal moment from a school visit — a student who came up after and said the talk changed how they see themselves. No product. Pure mission. This email has the highest forward rate of any in the sequence.</td></tr>
+          <tr><td>5 — Day 16</td><td>"Your spot in the movement is waiting."</td><td>Invite to join the movement. Feature the brand's school speaking program. Show celebrities who have worn the brand. Clear CTA to shop and share.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 08 INFLUENCER -->
+    <div class="panel" id="panel-influencer">
+      <div class="panel-eyebrow">08 · Influencer Strategy</div>
+      <h1 class="panel-title">Micro beats<br>macro.<br>Always.</h1>
+      <p class="panel-body">A student with 8,000 followers at Howard who posts authentically converts at <strong>5–15%.</strong> A celebrity with 2M followers converts at <strong>0.1%.</strong> The brand already has celebrity visibility — now it needs community depth. Here is the tiered approach.</p>
+      <div class="tier-grid">
+        <div class="tcard"><div class="tlbl">Tier 1</div><div class="tname">HBCU Students</div><p>Rodney already walks into schools and speaks directly to students. That is the most powerful influencer moment available — and it costs nothing extra. Hand a shirt to the students who connect most with the story during a school visit and ask them to post what SUCCESS means to them. Authentic, zero shipping cost, and the story behind the shirt is real because they heard it in person.</p><div class="tret">$3k–$8k</div><div class="tretl">Estimated Return</div><div class="tbar"></div></div>
+        <div class="tcard"><div class="tlbl">Tier 2</div><div class="tname">First-Gen Creators</div><p>Creators documenting the first-gen college experience and youth motivation content. Reach out personally — not with a pitch, but with Rodney's story. Ask if they want to be part of the movement. If budget allows, one shirt as a gesture goes further than a paid post. If not, a genuine DM from the founder himself is often enough.</p><div class="tret">$2k–$6k</div><div class="tretl">Estimated Return</div><div class="tbar"></div></div>
+        <div class="tcard"><div class="tlbl">Tier 3</div><div class="tname">Veteran & Faith</div><p>Black veteran creators and young Black pastors. Rodney's story resonates deeply in both communities. Pitch as a collaboration, not a transaction.</p><div class="tret">$1k–$4k</div><div class="tretl">Estimated Return</div><div class="tbar"></div></div>
+      </div>
+      <div class="callout" style="margin-top:24px;" class="muted">
+        <p>Never pay for posts that don't feel real. This audience knows the difference. <strong>Rodney reaches out personally</strong> — the same way he reaches students in schools. The movement sells itself when the story is told honestly.</p>
+      </div>
+    </div>
+
+    <!-- 09 REVENUE -->
+    <div class="panel" id="panel-revenue">
+      <div class="panel-eyebrow">09 · Revenue Growth</div>
+      <h1 class="panel-title">Revenue<br>opportunities.</h1>
+      <div class="rev-grid">
+        <div class="rcard"><span class="ico">📦</span><h4>The Starter Pack Bundle</h4><p>Hoodie + hat + sticker for $75. Saves them $15 vs. buying separately. Gives them something to post as a full outfit — generating organic content automatically.</p></div>
+        <div class="rcard"><span class="ico">🗓</span><h4>Semester Drops</h4><p>Not seasonal — semester. Fall (August) and Spring (January). Build hype 2 weeks before on TikTok. "New drop coming. Guess the color." Creates FOMO that fits their natural rhythm.</p></div>
+        <div class="rcard"><span class="ico">🎓</span><h4>School & Youth Program Partnerships</h4><p>Partner directly with schools Rodney speaks at. Offer bulk SUCCESS gear for students, counselors, and staff. Give a percentage back to the school's youth programs. Turns every speaking engagement into a revenue event.</p></div>
+        <div class="rcard"><span class="ico">🎁</span><h4>Graduation & Milestone Gifting</h4><p>A dedicated gift landing page: "Give them the brand that says you believe in them." Gift box at $65–$85. Target parents, teachers, and mentors buying for a graduate or student who just hit a milestone. Meaningful revenue spike May through June.</p></div>
+        <div class="rcard"><span class="ico">🏛</span><h4>Corporate & Bulk Orders</h4><p>Schools, nonprofits, churches, and veteran organizations buy branded apparel in bulk. A dedicated page with tiered discounts could generate $2k–$10k single orders.</p></div>
+      </div>
+    </div>
+
+    <!-- 10 ROADMAP -->
+    <div class="panel" id="panel-roadmap">
+      <div class="panel-eyebrow">10 · 90-Day Growth Roadmap</div>
+      <h1 class="panel-title">Prioritized<br>by impact.</h1>
+      <div class="rmap">
+        <div class="rphase"><div class="rtop"></div><div class="rlbl">Phase 01</div><div class="rdays">Days<br>1–30</div>
+          <div class="ri"><div class="rdot"></div>Film "Nobody believed in me either" TikTok series — Brooklyn, the Navy, the first shirt (6 videos)</div>
+          <div class="ri"><div class="rdot"></div>Rewrite homepage hero with new copy</div>
+          <div class="ri"><div class="rdot"></div>Add Channel 8 News press badge to trust bar on navigation</div>
+          <div class="ri"><div class="rdot"></div>Install email popup: "Join the movement"</div>
+          <div class="ri"><div class="rdot"></div>Rewrite top 5 product descriptions</div>
+          <div class="ri"><div class="rdot"></div>DM 20 past customers for testimonial photos</div>
+          <div class="ri"><div class="rdot"></div>Write the 5-email welcome sequence</div>
+          <div class="ri"><div class="rdot"></div>Post daily on TikTok + Stories</div>
+        </div>
+        <div class="rphase"><div class="rtop"></div><div class="rlbl">Phase 02</div><div class="rdays">Days<br>31–60</div>
+          <div class="ri"><div class="rdot"></div>Use AI to generate product photos — no photoshoot budget needed</div>
+          <div class="ri"><div class="rdot"></div>Ship product to 10–30 college influencers</div>
+          <div class="ri"><div class="rdot"></div>Launch "What does SUCCESS mean to you?" TikTok series</div>
+          <div class="ri"><div class="rdot"></div>Create the Starter Pack bundle ($75)</div>
+          <div class="ri"><div class="rdot"></div>Film S.U.C.C.E.S.S. letter series (7 videos)</div>
+          <div class="ri"><div class="rdot"></div>Start weekly Monday SUCCESS Story email</div>
+          <div class="ri"><div class="rdot"></div>Announce Fall semester drop with countdown</div>
+          <div class="ri"><div class="rdot"></div>Install cart abandonment email flow</div>
+        </div>
+        <div class="rphase"><div class="rtop"></div><div class="rlbl">Phase 03</div><div class="rdays">Days<br>61–90</div>
+          <div class="ri"><div class="rdot"></div>Execute Fall semester drop</div>
+          <div class="ri"><div class="rdot"></div>Launch first limited HBCU-collab colorway</div>
+          <div class="ri"><div class="rdot"></div>Test Meta retargeting with founder story video</div>
+          <div class="ri"><div class="rdot"></div>Build graduation gift landing page</div>
+          <div class="ri"><div class="rdot"></div>Launch "Before the streets got me" school visit TikTok series</div>
+          <div class="ri"><div class="rdot"></div>Ambassador program with top 5 influencer partners</div>
+          <div class="ri"><div class="rdot"></div>Add post-purchase review request automation</div>
+          <div class="ri"><div class="rdot"></div>Build bulk orders landing page</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 VERDICT -->
+    <div class="panel" id="panel-verdict">
+      <div class="panel-eyebrow">11 · Final Verdict</div>
+      <h1 class="panel-title">The path to<br>$100K<br>per month.</h1>
+      <p class="panel-body">Rodney Kersaint survived Russian roulette at age 8, was raised by a single mother working multiple jobs, lost friends to jail and death, got kicked out of school and his family home — then joined the Navy, found his footing in San Diego, put SUCCESS on a shirt as a personal reminder, landed on Channel 8 News, built a national movement, and now travels the country speaking at schools to help youth, college students, and aspiring young adults unlock their potential before negative influences get the chance. That story — which speaks directly to every kid in a classroom, every first-gen college student, and every adult figuring out what comes next — is currently worth zero because the website doesn't tell it.</p>
+      <div class="verdict-grid">
+        <div class="vcard w"><h4>Biggest Weaknesses</h4>
+          <div class="vi">Founder story buried — not on homepage</div>
+          <div class="vi">Channel 8 News press feature not visible on site</div>
+          <div class="vi">No content targeting college students or aspiring youth</div>
+          <div class="vi">School speaking program not visible anywhere</div>
+          <div class="vi">No email list being built</div>
+          <div class="vi">52 Google reviews exist but buried at page bottom</div>
+        </div>
+        <div class="vcard o"><h4>Biggest Opportunities</h4>
+          <div class="vi">Origin story TikTok — today, phone quality, free</div>
+          <div class="vi">School visit clips already exist — just need posting</div>
+          <div class="vi">HBCU + college campus influencer seeding</div>
+          <div class="vi">5.0 ★ Google rating widget moved above the fold</div>
+          <div class="vi">Bulk orders page for schools and youth programs</div>
+          <div class="vi">Email sequence targeting all three audience groups</div>
+        </div>
+      </div>
+      <div class="callout">
+        <p><strong>Priority one:</strong> Film a 60-second TikTok this week. Rodney on camera. Phone quality. Start with: "At 8 years old a neighbor put a gun to my head and played Russian roulette. This is what I did with that." Pin it. That single video, told honestly, will reach more of the exact target audience than any ad budget, any influencer campaign, or any paid strategy — because it is the story this generation needs to hear. The story was always there. Now it's time to build the brand around it.</p>
+      </div>
+      <div style="margin-top:40px; padding-top:32px; border-top:1px solid var(--border);">
+  <p style="font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray2); margin-bottom:20px;">The Brand Architecture</p>
+  <p style="font-size:13px; color:var(--gray); line-height:2; margin-bottom:0;">
+    <strong style="color:var(--off);">Mission</strong> — Reach young people before the wrong influences do.<br>
+    <strong style="color:var(--off);">Movement</strong> — The story reaches them. The shirt reminds them.<br>
+    <strong style="color:var(--white);">Reminder</strong> — Stand Up. Create Change. Every Single Second.
+  </p>
+</div>
+    </div>
+
+  </div><!-- /content-wrap -->
+
+  <!-- Bottom bar -->
+  <div class="bottombar">
+    <span class="bb-left" id="bb-pos">Section 1 of 12</span>
+    <div class="bb-right">
+      <button class="bb-btn" onclick="prevPanel()">← Prev</button>
+      <button class="bb-btn primary" onclick="nextPanel()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Side social links -->
+<div class="side-social">
+  <a class="soc-link" href="#">Success By Kersaint</a>
+</div>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const cur2 = document.getElementById('cur2');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+(function loop() {
+  window._rx = (window._rx || 0) + ((window._mx || 0) - (window._rx || 0)) * 0.1;
+  window._ry = (window._ry || 0) + ((window._my || 0) - (window._ry || 0)) * 0.1;
+  cur2.style.left = window._rx + 'px';
+  cur2.style.top  = window._ry + 'px';
+  requestAnimationFrame(loop);
+})();
+document.addEventListener('mousemove', e => { window._mx = e.clientX; window._my = e.clientY; });
+
+// ── PANEL DATA ──
+const panels = ['hero','truth','audience','voice','website','tiktok','instagram','email','influencer','revenue','roadmap','verdict'];
+const labels = ['Overview','Core Truth','The Audience','Brand Voice','Website Audit','TikTok','Instagram','Email','Influencer','Revenue Ops','90-Day Roadmap','Final Verdict'];
+let current = 0;
+
+// ── INFINITE CAROUSEL ENGINE ──
+const CARD_H   = 160;
+const CARD_GAP = 18;
+const STEP     = CARD_H + CARD_GAP;
+
+const ROTATE_X    = [ 52,  42,  30,  18,   8,   0,  -8, -18, -30, -42, -52];
+const SCALE       = [0.58, 0.65, 0.73, 0.83, 0.92, 1.0, 0.92, 0.83, 0.73, 0.65, 0.58];
+const OPACITY     = [0,   0.18, 0.35, 0.58, 0.82, 1.0, 0.82, 0.58, 0.35, 0.18, 0   ];
+const TRANSLATE_Z = [-90, -75,  -55,  -35,  -16,   0,  -16,  -35,  -55,  -75, -90];
+
+const compressions = [0, 0.96, 0.90, 0.84, 0.78, 0.72];
+function getTY(offset) {
+  const sign = Math.sign(offset);
+  const abs  = Math.abs(offset);
+  let ty = 0;
+  for (let i = 0; i < abs; i++) ty += STEP * (compressions[Math.min(i,5)] || 0.72);
+  return ty * sign;
+}
+
+// Modulo that always returns positive
+function mod(n, m) { return ((n % m) + m) % m; }
+
+function updateCarousel() {
+  const wraps = document.querySelectorAll('.nav-card-wrap');
+  const n = wraps.length;
+
+  wraps.forEach((wrap, i) => {
+    // shortest circular distance from current to i
+    let offset = i - current;
+    if (offset >  n / 2) offset -= n;
+    if (offset < -n / 2) offset += n;
+
+    const clamp = Math.max(-5, Math.min(5, offset));
+    const idx   = clamp + 5;
+
+    const ty = getTY(offset);
+    const rx = ROTATE_X[idx];
+    const sc = SCALE[idx];
+    const op = OPACITY[idx];
+    const tz = TRANSLATE_Z[idx];
+
+    wrap.style.transform    = `translateY(${ty}px) rotateX(${rx}deg) scale(${sc}) translateZ(${tz}px)`;
+    wrap.style.opacity      = op;
+    wrap.style.pointerEvents= Math.abs(offset) > 4 ? 'none' : 'auto';
+    wrap.style.zIndex       = 20 - Math.abs(offset);
+    wrap.classList.toggle('active', offset === 0);
+  });
+
+  document.getElementById('cCounter').textContent =
+    String(current + 1).padStart(2,'0') + ' / ' + String(panels.length).padStart(2,'0');
+}
+
+function goTo(index) {
+  const n = panels.length;
+  current = mod(index, n);
+  updateCarousel();
+
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + panels[current]).classList.add('active');
+  document.getElementById('topbar-label').textContent = labels[current];
+  document.getElementById('bb-pos').textContent = 'Section ' + (current + 1) + ' of ' + n;
+  document.getElementById('progress').style.width = ((current + 1) / n * 100) + '%';
+
+  // On mobile, scroll to content area
+  if (window.innerWidth <= 768) {
+    document.querySelector('.main').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function carouselNext() { goTo(current + 1); }
+function carouselPrev() { goTo(current - 1); }
+
+// Click any visible card
+document.querySelectorAll('.nav-card-wrap').forEach(wrap => {
+  wrap.addEventListener('click', () => goTo(parseInt(wrap.dataset.index)));
+});
+
+// Legacy compat
+function switchPanel(card, id) { goTo(panels.indexOf(id)); }
+function switchPanelById(id)   { goTo(panels.indexOf(id)); return false; }
+function nextPanel() { carouselNext(); }
+function prevPanel() { carouselPrev(); }
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') carouselNext();
+  if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  carouselPrev();
+});
+
+// Scroll wheel
+document.querySelector('.carousel-viewport').addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.deltaY > 0) carouselNext(); else carouselPrev();
+}, { passive: false });
+
+// Init
+updateCarousel();
+document.getElementById('progress').style.width = (1 / panels.length * 100) + '%';
+
+// Touch swipe support for mobile
+let touchStartY = 0;
+let touchStartX = 0;
+document.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  const dy = touchStartY - e.changedTouches[0].clientY;
+  const dx = touchStartX - e.changedTouches[0].clientX;
+  // Only trigger on mostly-vertical swipes on the carousel
+  if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+    if (e.target.closest('.carousel-viewport')) {
+      if (dy > 0) carouselNext(); else carouselPrev();
+    }
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
